@@ -33,7 +33,7 @@ frase = st.text_input("Introdueix la frase per a definir el context:")
 
 
 language_code = languages[idioma_input]
-idiomes_output = st.multiselect("Selecciona els idiomes al qual vols traduir la paraula:", list(languages.keys()))
+idiomes_output = st.multiselect("Selecciona els idiomes al/s qual/s vols traduir la paraula:", list(languages.keys()))
 taula = pd.DataFrame(columns=[ "Paraula","Arrel", "Traducció", "Idioma"])
 
 for idioma in idiomes_output:
