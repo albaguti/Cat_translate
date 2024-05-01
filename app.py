@@ -2,12 +2,29 @@ import streamlit as st
 import pandas as pd
 from translate import Translator
 from simplemma import text_lemmatizer
+from nltk.corpus import wordnet as wn
+import nltk
+import re
+nltk.download('wordnet')
+nltk.download('omw')
 
-import urllib.request
-from bs4 import BeautifulSoup
+
+st.set_page_config(
+    page_title="Cat Traductor",
+    page_icon="🧊",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://www.github.com/albaguti/cat-traductor',
+        'Report a bug': "https://www.github.com/albaguti/cat-traductor/issues",
+        'About': "# This is a header. This is an *extremely* cool app!"
+    }
+)
 
 
-st.header("Aplicacio per a automaticament traduir paraules:")
+
+
+st.header("Aplicacio per a traduir paraules a múltiples idiomes:", divider='rainbow')
 
 languages = {
     "català": "ca",
@@ -49,3 +66,30 @@ for idioma in idiomes_output:
     taula = pd.concat([taula, new_row], ignore_index=True)
 
 st.table(taula)
+
+
+st.divider()
+st.header("Sinònims de la paraula introduida:", divider='rainbow')
+# Streamlit input for the word
+derivat = st.text_input("Introdueix la paraula per a buscar tots els seus significats:", key="paraula_sinonims")
+
+# Find synonyms in Catalan
+synonyms = wn.synsets(derivat, lang='cat')
+
+# Regex pattern to extract lemma and form
+pattern = r"Lemma\('(.*?)\.n\.\d+\.(.*?)'\)"
+# Extract and store all pairs
+pairs = []
+for syn in synonyms:
+    # Convert synset to string to apply regex
+    syn_str = str(syn.lemmas(lang='cat'))
+    match = re.search(pattern, syn_str)
+    if match:
+        lemma_form = match.group(1), match.group(2)
+        pairs.append(lemma_form)
+
+# Create a DataFrame from the pairs
+df = pd.DataFrame(pairs, columns=['Lemma', 'Form'])
+
+# Display the DataFrame in Streamlit
+st.dataframe(df, use_container_width=True)

@@ -11,6 +11,8 @@ setup(
         "streamlit",
         "pandas",
         "translate",
-        "simplemma"
+        "simplemma",
+        "nltk",
+        "watchdog"
     ],
 )
