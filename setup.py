@@ -10,6 +10,7 @@ setup(
     install_requires=[
         "streamlit",
         "pandas",
-        "translate"
+        "translate",
+        "simplemma"
     ],
 )
