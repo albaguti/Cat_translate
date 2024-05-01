@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from translate import Translator
-from simplemma import lemmatize
+from simplemma import text_lemmatizer
 
 st.header("Aplicacio per a automaticament traduir paraules:")
 
@@ -41,8 +41,8 @@ for idioma in idiomes_output:
     translator = Translator(from_lang=language_code, to_lang=idioma_output)
     frase_traduida = translator.translate(frase)
     paraula_traduida = translator.translate(paraula)
-    arrel = lemmatize(paraula, lang=idioma_output)
-    new_row = pd.DataFrame({ "Traducció": [frase_traduida], "Paraula": [paraula_traduida], "Idioma": [idioma]})
+    arrel = text_lemmatizer(paraula, lang=idioma_output)[0]
+    new_row = pd.DataFrame({ "Traducció": [frase_traduida], "Paraula": [paraula_traduida], "Idioma": [idioma], "Arrel": arrel})
     taula = pd.concat([taula, new_row], ignore_index=True)
 
 st.table(taula)
