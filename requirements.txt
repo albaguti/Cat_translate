@@ -2,4 +2,3 @@ streamlit
 pandas
 translate
 simplemma
-bs4
