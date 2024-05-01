@@ -1,0 +1,7 @@
+README.md
+setup.py
+cattranslate.egg-info/PKG-INFO
+cattranslate.egg-info/SOURCES.txt
+cattranslate.egg-info/dependency_links.txt
+cattranslate.egg-info/requires.txt
+cattranslate.egg-info/top_level.txt
