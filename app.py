@@ -3,6 +3,20 @@ import pandas as pd
 from translate import Translator
 from simplemma import text_lemmatizer
 
+import urllib.request
+from bs4 import BeautifulSoup
+
+def get_context_based_translation(source_lang, target_lang, sentence):
+    search = "+" + sentence.replace(" ", "+")
+    url = f'http://context.reverso.net/translation/{source_lang}-{target_lang}/' + search
+    page = urllib.request.urlopen(url).read()
+    soup = BeautifulSoup(page, 'html.parser')
+
+    # Assuming the first translation is the most relevant
+    translated_word = soup.find_all("div", {"class": "trg"})[0].em.text
+    return translated_word
+
+
 st.header("Aplicacio per a automaticament traduir paraules:")
 
 languages = {
@@ -13,16 +27,15 @@ languages = {
     "alemany": "de",
     "italià": "it",
     "portugues": "pt",
+    "rumanès": "ro",
     "polones": "pl",
     "holandes": "nl",
     "grec": "el",
     "hongares": "hu",
-    "albanès": "sq",
-    "bosni": "bs",
-    "serbi": "sr",
-    "croata": "hr",
-    "eslovè": "sl",
-    "eslovac": "sk"
+    "norueg": "no",
+    "finlandes": "fi",
+    "suec": "sv",
+    "danès": "da"
 }
 
 idioma_input = st.selectbox("Selecciona l'idioma de la paraula a traduir:", list(languages.keys()))
@@ -38,6 +51,8 @@ taula = pd.DataFrame(columns=[ "Paraula","Arrel", "Traducció", "Idioma"])
 
 for idioma in idiomes_output:
     idioma_output = languages[idioma]
+    translated_word = get_context_based_translation(idioma_input, idioma_output, frase)
+
     translator = Translator(from_lang=language_code, to_lang=idioma_output)
     frase_traduida = translator.translate(frase)
     paraula_traduida = translator.translate(paraula)
