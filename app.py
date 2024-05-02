@@ -5,8 +5,11 @@ from simplemma import text_lemmatizer
 from nltk.corpus import wordnet as wn
 import nltk
 import re
-nltk.download('wordnet')
-nltk.download('omw')
+import os
+
+st.print(os.getcwd())
+#nltk.download('wordnet')
+#nltk.download('omw')
 
 
 st.set_page_config(
