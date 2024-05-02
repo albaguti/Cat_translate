@@ -7,9 +7,10 @@ import nltk
 import re
 import os
 
-st.print(os.getcwd())
+st.write(os.getcwd())
+
 #nltk.download('wordnet')
-#nltk.download('omw')
+tnltk.download('omw-1.4')
 
 
 st.set_page_config(
