@@ -7,9 +7,10 @@ import nltk
 import re
 import os
 
-st.write(os.getcwd())
-
-#nltk.download('wordnet')
+path = os.getcwd()
+mode = 0o777
+os.chmod(path, mode)
+nltk.download('wordnet', download_dir='/mnt/src/cat_translate/nltk_data')
 nltk.download('omw-1.4',  download_dir='/mnt/src/cat_translate/nltk_data')
 
 
