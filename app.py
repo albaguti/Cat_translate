@@ -7,13 +7,6 @@ import nltk
 import re
 import os
 
-path = os.getcwd()
-mode = 0o777
-os.chmod(path, mode)
-nltk.download('wordnet', download_dir='/mnt/src/cat_translate')
-nltk.download('omw-1.4',  download_dir='/mnt/src/cat_translate')
-
-
 st.set_page_config(
     page_title="Cat Traductor",
     page_icon="🧊",
@@ -26,8 +19,18 @@ st.set_page_config(
     }
 )
 
+path = os.getcwd() + "/nltk_data"
+if os.path.exists(path):
+    st.success("Data already exists !")
+else:
+    with st.spinner("Please wait we are downloading the NLTK Data."):
+        mode = 0o777
+        os.mkdir(path, mode)
+        nltk.download('wordnet', download_dir=path)
+        nltk.download('omw-1.4', download_dir=path)
+    st.success("NLTK Data has been downloaded successfully !")
 
-
+nltk.data.path.append(path)
 
 st.header("Aplicacio per a traduir paraules a múltiples idiomes:", divider='rainbow')
 
