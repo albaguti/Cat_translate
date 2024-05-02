@@ -6,6 +6,8 @@ from nltk.corpus import wordnet as wn
 import nltk
 import re
 import os
+from nltk.corpus.reader.wordnet import WordNetCorpusReader
+
 
 st.set_page_config(
     page_title="Cat Traductor",
@@ -83,7 +85,6 @@ derivat = st.text_input("Introdueix la paraula per a buscar tots els seus signif
 
 # Find synonyms in Catalan
 synonyms = wn.synsets(derivat, lang='cat')
-
 # Regex pattern to extract lemma and form
 pattern = r"Lemma\('(.*?)\.n\.\d+\.(.*?)'\)"
 # Extract and store all pairs
