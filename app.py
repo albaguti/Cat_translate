@@ -10,7 +10,7 @@ import os
 st.write(os.getcwd())
 
 #nltk.download('wordnet')
-tnltk.download('omw-1.4')
+nltk.download('omw-1.4',  download_dir='/mnt/src/cat_translate/nltk_data')
 
 
 st.set_page_config(
