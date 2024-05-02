@@ -23,7 +23,7 @@ st.set_page_config(
 
 path = os.getcwd() + "/nltk_data"
 if os.path.exists(path):
-    st.success("Data already exists !")
+    print("Data already exists !")
 else:
     with st.spinner("Please wait we are downloading the NLTK Data."):
         mode = 0o777
